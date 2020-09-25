@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,6 +24,8 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_DATAPATH = "Invalid format of data path, "
+            + "please key in as such: <dir>\\<dir>\\";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -120,5 +125,19 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String datapath} into a {@code Path}.
+     *
+     * @throws ParseException if the given {@code datapath} is invalid
+     */
+    public static Path parseDataPath(String datapath) throws ParseException {
+        try {
+            datapath = datapath.strip();
+            return Paths.get(datapath);
+        } catch (InvalidPathException e) {
+            throw new ParseException(MESSAGE_INVALID_DATAPATH);
+        }
     }
 }
