@@ -28,7 +28,7 @@ public class SetApplicationStatusCommand extends Command {
             + "Example: "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_APPLICATION_STATUS + "accepted";
-    public static final String MESSAGE_SUCCESS = "Application Status of %1$s changed from %3$s to %2$s";
+    public static final String MESSAGE_SUCCESS = "Application Status of %1$s changed to %2$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the eva database";
 
     private final Index targetIndex;
@@ -55,8 +55,7 @@ public class SetApplicationStatusCommand extends Command {
 
         model.setApplicationStatus(targetApplicant, newApplicationStatus);
         model.setApplicant(targetApplicant, targetApplicant);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, targetApplicant.getName(),
-                targetApplicant.getApplicationStatus().toString(), newApplicationStatus));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetApplicant.getName(), newApplicationStatus));
     }
 
     @Override

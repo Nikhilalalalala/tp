@@ -21,7 +21,12 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
+        System.out.println(tagName);
+        if (!isValidTagName(tagName)) {
+            throw new IllegalArgumentException(tagName);
+        }
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+
         this.tagName = tagName;
     }
 
